@@ -162,7 +162,7 @@ public class Evolver {
                 if(fit>fitness(population[bIndex])) bIndex = j;
         }
         System.out.println(fitness(population[bIndex]));
-        return population[bIndex];
+        return best;
     }
 }
 

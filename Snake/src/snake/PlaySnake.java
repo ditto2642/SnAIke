@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import com.google.gson.*;
 
 /**
  *
@@ -29,9 +30,11 @@ public class PlaySnake extends Application {
     @Override
     public void start(Stage primaryStage) {
         //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])
-        /*Evolver ev = new Evolver(125, 25, 0.25, 50);
+        
+        Evolver ev = new Evolver(125, 25, 0.05, 50);
         NeuralNet temp = ev.evolve(500);
-        final NeuralNet snaek = temp.clone();*/
+        final NeuralNet snaek = temp.clone();
+        
         int gridx = 50;
         int gridy = 50;
         int winx = gridx*12 + 500;
@@ -67,7 +70,7 @@ public class PlaySnake extends Application {
                 gc.fillRect(488, 0, winx, winy);
                 GameItem cur;
                 GameState gs = game.getState();
-                //int move = snaek.move(gs);                
+                int move = snaek.move(gs);                
                 Board b = gs.board;
                 for(int i=0;i<gridx-1;i++){
                     for(int j=0;j<gridy-1;j++){
@@ -97,10 +100,10 @@ public class PlaySnake extends Application {
                 //if(dir!=-1){
                 if(count%2==1){
                     
-                    game.tick(dir);                
+                    game.tick(move);                
                 }
                 counter.set(count>100?0:count+1);
-                //}
+               // }
             }
         };
         scene.setOnKeyPressed((KeyEvent e) -> {
@@ -134,8 +137,8 @@ public class PlaySnake extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //launch(args);        
-        SnakeNet.main(args);
+        launch(args);        
+        //SnakeNet.main(args);
     }
     
 }
