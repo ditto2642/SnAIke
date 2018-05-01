@@ -47,6 +47,7 @@ public class NeuralNet {
         ticks++;
         float[] distances = look(gs);
         float[] out = decision(distances);
+        System.out.println(Arrays.toString(distances));
         return (int) max(out);
     }
     
@@ -67,7 +68,7 @@ public class NeuralNet {
     }
     
     public static float[] lookInDir(Board b, int dir, int[] pos){
-        float[] distances = {-1,-1,-1};
+        float[] distances = {0,0,0};
         int[] vector = new int[2];
         int[] cur = pos.clone();
         switch(dir){
@@ -104,11 +105,10 @@ public class NeuralNet {
                 vector[1] = -1;
                 break;
         }
-        int count = 0;
+        int count = 1;
         cur[0] += vector[0];
         cur[1] += vector[1];
-        while(cur[0]>=0&&cur[1]>=0&&cur[0]<b.getSize()[0]&&cur[1]<b.getSize()[1]){
-            count++;
+        while(cur[0]>=0&&cur[1]>=0&&cur[0]<b.getSize()[0]&&cur[1]<b.getSize()[1]){            
             GameItem ref = b.itemAt(cur[0], cur[1]);
             if(distances[0]==-1&&ref instanceof Snake){
                 distances[0] = count;
@@ -118,8 +118,8 @@ public class NeuralNet {
             }
             cur[0] += vector[0];
             cur[1] += vector[1];
+            count++;
         }
-        count++;
         distances[2] = count;
         return distances;
     }
