@@ -44,7 +44,7 @@ public class Game {
     }
     
     private static int sToL(int x){        
-        return (int) Math.floor(x<=6?(x+5):(1/2*(x*x)+11));
+        return 2*x+5;
     }
     
     private int[] randCoords(int xmax, int ymax){
