@@ -9,7 +9,7 @@ import snake.*;
  *
  * @author pmaclean
  */
-public class NeuralNet {
+public class NeuralNet implements Sai {
     int inN;
     int hidN;
     int outN;
@@ -43,6 +43,7 @@ public class NeuralNet {
     }
     
     //called to get the move of this net based on a game board
+    @Override
     public int move(GameState gs){
         ticks++;
         float[] distances = look(gs);

@@ -29,11 +29,10 @@ public class PlaySnake extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])
-        
+        //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])        
         Evolver ev = new Evolver(125, 25, 0.05, 50);
         NeuralNet temp = ev.evolve(500);
-        final NeuralNet snaek = temp.clone();
+        final Sai snaek = temp.clone();
         
         int gridx = 50;
         int gridy = 50;
@@ -98,12 +97,13 @@ public class PlaySnake extends Application {
                 int count = counter.get();
                 
                 //if(dir!=-1){
-                if(count%2==1){
+                if(count%2==0){
                     
-                    game.tick(move);                
+                    game.tick(move);
+                    //game.tick(dir);
                 }
                 counter.set(count>100?0:count+1);
-               // }
+                //}
             }
         };
         scene.setOnKeyPressed((KeyEvent e) -> {
@@ -124,6 +124,7 @@ public class PlaySnake extends Application {
                     break;
                 case 'R':
                     game.reset();
+                    direction.set(-1);
                     break;
             }
             
