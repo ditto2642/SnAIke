@@ -53,11 +53,9 @@ public class Matrix {
     //make this matrix and some other matrix make matrix babies
     public Matrix crossover(Matrix p){
         Matrix c = new Matrix(rows,cols, rand.nextInt());
-        int rr = rand.nextInt(rows);
-        int cr = rand.nextInt(cols);
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
-                if(i<rr||(i==rr&&j<=cr)){
+                if(rand.nextInt()%9>=4){
                     c.matrix[i][j] = matrix[i][j];
                 } else {
                      c.matrix[i][j] = p.matrix[i][j];

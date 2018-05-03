@@ -30,12 +30,12 @@ public class PlaySnake extends Application {
     @Override
     public void start(Stage primaryStage) {
         //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])        
-        Evolver ev = new Evolver(125, 25, 0.05, 50);
-        NeuralNet temp = ev.evolve(500);
+        Evolver ev = new Evolver(100, 25, 0.2, 15);
+        NeuralNet temp = ev.evolve(1500);
         final Sai snaek = temp.clone();
         
-        int gridx = 50;
-        int gridy = 50;
+        int gridx = 15;
+        int gridy = 15;
         int winx = gridx*12 + 500;
         int winy = (gridy+1)*12;
         Pane root = new Pane();
