@@ -20,6 +20,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.google.gson.*;
+import java.util.Random;
 
 /**
  *
@@ -38,6 +39,7 @@ public class PlaySnake extends Application {
         int gridy = 15;
         int winx = gridx*12 + 500;
         int winy = (gridy+1)*12;
+        int h = winy/2;
         Pane root = new Pane();
         Scene scene = new Scene(root, winx,winy);
         Canvas c = new Canvas(winx,winy);
@@ -46,7 +48,7 @@ public class PlaySnake extends Application {
         gc.setFont(new Font("Times New Roman", 50));
         final long snt = System.nanoTime();
         Game game = new Game(gridx,gridy, System.currentTimeMillis());
-        
+        Random r = new Random(winy + System.currentTimeMillis());
         class GetSet{
             int d;
             public int get(){
@@ -94,7 +96,7 @@ public class PlaySnake extends Application {
                         gc.fillRect((i*12)+500, j*12 + 12, 12, 12);
                     }
                 }
-                gc.fillText("Score: "+gs.score, 50, 300);
+                gc.fillText("Score: "+gs.score, 50, h);
                 int dir = direction.get();
                 int count = counter.get();
                 

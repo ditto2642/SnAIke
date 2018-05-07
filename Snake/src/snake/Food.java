@@ -8,6 +8,7 @@ package snake;
 /**
  *
  * @author pmaclean
+ * food for thought
  */
 public class Food extends GameItem {
     Food(){
