@@ -1,8 +1,10 @@
 /*
  * Note: the structure for the matrix and neural net classes are written by me but are based on the ones used in codebullets snake ai: https://github.com/Code-Bullet/SnakeFusion/blob/master/SmartSnakesCombine/Matrix.pde
- * effectively everything else by is me
+ * I realize this looks very similar to that project's, but I assure you, the reader, I spent time writing everything out and making sure to understand it before using it. 
+ *effectively everything else by is me
  */
 package snakenet;
+
 
 import java.util.Random;
 
@@ -15,7 +17,6 @@ public class Matrix {
     int rows;
     int cols;
     Random rand;
-    
     Matrix(int r,int c, long salt){
         rows = r;
         cols = c;
@@ -113,7 +114,6 @@ public class Matrix {
         return a;
   }
 
-    //cant explain b/c i dont really know how ALL of this works, if someone can, pull request to change it
     public Matrix addBias(){
         Matrix res = new Matrix(rows+1,1, rand.nextInt());
         for(int i=0;i<rows;i++){

@@ -1,5 +1,6 @@
 /*
  * Note: the structure for the matrix and neural net classes are written by me but are based on the ones used in codebullets snake ai: https://github.com/Code-Bullet/SnakeFusion/blob/master/SmartSnakesCombine/NeuralNet.pde
+ * see Matrix.java for more info on this
  * Effectively everything else is me 
 */
 package snakenet;
@@ -14,7 +15,6 @@ public class NeuralNet implements Sai {
     int hidN;
     int outN;
     
-    //these var names same as in codeBullets b/c im lazy
     Matrix whi;
     Matrix whh;
     Matrix woh;

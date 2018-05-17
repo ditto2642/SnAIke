@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.google.gson.*;
 import java.util.Random;
-
 /**
  *
  * @author pmaclean
@@ -31,12 +30,12 @@ public class PlaySnake extends Application {
     @Override
     public void start(Stage primaryStage) {
         //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])        
-        Evolver ev = new Evolver(100, 25, 0.2, 15);
+       /* Evolver ev = new Evolver(100, 25, 0.2, 15);
         NeuralNet temp = ev.evolve(1500);
         final Sai snaek = temp.clone();
-        
-        int gridx = 15;
-        int gridy = 15;
+        */
+        int gridx = 50;
+        int gridy = 50;
         int winx = gridx*12 + 500;
         int winy = (gridy+1)*12;
         int h = winy/2;
@@ -73,7 +72,7 @@ public class PlaySnake extends Application {
                 gc.fillRect(488, 0, winx, winy);
                 GameItem cur;
                 GameState gs = game.getState();
-                int move = snaek.move(gs);                
+                //int move = snaek.move(gs);                
                 Board b = gs.board;
                 for(int i=0;i<gridx-1;i++){
                     for(int j=0;j<gridy-1;j++){
@@ -100,14 +99,14 @@ public class PlaySnake extends Application {
                 int dir = direction.get();
                 int count = counter.get();
                 
-                //if(dir!=-1){
-                if(count%2==0){
+                if(dir!=-1){
+                if(count%3==0){
                     
-                    game.tick(move);
-                //    game.tick(dir);
+                //    game.tick(move);
+                    game.tick(dir);
                 }
                 counter.set(count>100?0:count+1);
-                //}
+                }
             }
         };
         scene.setOnKeyPressed((KeyEvent e) -> {
