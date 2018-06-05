@@ -34,7 +34,8 @@ public class Evolver {
         rand = new Random(System.currentTimeMillis());
         size = gSize;
     }
-
+    
+    //fitness function to evaluate each net
     public static long fitness(NeuralNet n) {
         int score, time;
         try{
@@ -46,8 +47,9 @@ public class Evolver {
         }
         return score<10?time*time*(long)Math.pow(2,score):1024*(score-9)*time*time;
     }
-
-    public static NeuralNet[] sortByFitness(NeuralNet[] a) {
+    
+    //this is very bad
+    /*public static NeuralNet[] sortByFitness(NeuralNet[] a) {
         boolean work = false;
         do {
             work = false;
@@ -62,7 +64,7 @@ public class Evolver {
         } while (work);
         System.out.println(fitness(a[0]));
         return a;
-    }
+    }*/
 
     public static String artf(NeuralNet[] in) {
         String[] out = new String[in.length];
@@ -71,7 +73,8 @@ public class Evolver {
         }
         return Arrays.toString(out);
     }
-
+    
+    //tests all neural nets in an array on a game board of a given size
     public static NeuralNet[] testNets(NeuralNet[] na, int size) {
         Game[] games = new Game[na.length];
         boolean anyAlive = false;

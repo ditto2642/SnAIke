@@ -1,8 +1,3 @@
-/*
- * Note: the structure for the matrix and neural net classes are written by me but are based on the ones used in codebullets snake ai: https://github.com/Code-Bullet/SnakeFusion/blob/master/SmartSnakesCombine/NeuralNet.pde
- * see Matrix.java for more info on this
- * Effectively everything else is me 
-*/
 package snakenet;
 import java.util.Arrays;
 import snake.*;
@@ -23,7 +18,7 @@ public class NeuralNet implements Sai {
     int ticks = 0;
     int testCount = 0;
     
-    NeuralNet(int inputs, int hidden, int outputs, long seed){
+    public NeuralNet(int inputs, int hidden, int outputs, long seed){
         inN = inputs;
         hidN = hidden;
         outN = outputs;
@@ -52,6 +47,7 @@ public class NeuralNet implements Sai {
         return (int) max(out);
     }
     
+    //look in all the directions to make a 14 element array
     public static float[] look(GameState gs){
         float[] dis = new float[24];
         int index;
@@ -69,7 +65,7 @@ public class NeuralNet implements Sai {
     }
     
     public static float[] lookInDir(Board b, int dir, int[] pos){
-        float[] distances = {0,0,0};
+        float[] distances = {-1,-1,-1};
         int[] vector = new int[2];
         int[] cur = pos.clone();
         switch(dir){
@@ -111,10 +107,10 @@ public class NeuralNet implements Sai {
         cur[1] += vector[1];
         while(cur[0]>=0&&cur[1]>=0&&cur[0]<b.getSize()[0]&&cur[1]<b.getSize()[1]){            
             GameItem ref = b.itemAt(cur[0], cur[1]);
-            if(distances[0]==0&&ref instanceof Snake){
+            if(distances[0]==-1&&ref instanceof Snake){
                 distances[0] = count;
             }
-            if(distances[1]==0&&ref instanceof Food){
+            if(distances[1]==-1&&ref instanceof Food){
                 distances[1] = count;
             }
             cur[0] += vector[0];

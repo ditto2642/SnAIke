@@ -35,6 +35,7 @@ public class Game {
         int[] start = randCoords(this.w,this.h);
         this.head = start;
         this.b[start[1]][start[0]] = new Snake();
+
     }
     
     public GameState getState(){
@@ -98,11 +99,14 @@ public class Game {
             this.b[f[1]][f[0]] = new Food();
             food = f;
         }
-        
+        //set length in case food was acquired
         int length = sToL(score);
+        
+        //set new head of the snake
         head = next;
         b[next[1]][next[0]] = new Snake();
         
+        //age up every gameitem, this kills old snake parts
         for(int i=0;i<b.length;i++){
             for(int j=0;j<b[i].length;j++){
                 if(b[i][j] != null){
@@ -113,6 +117,7 @@ public class Game {
             }
         }
     }
+    
     public void reset(){
         this.w = w;
         this.h = h;
