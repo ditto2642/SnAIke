@@ -49,6 +49,7 @@ public class PlaySnake extends Application {
         final long snt = System.nanoTime();
         Game game = new Game(gridx,gridy, System.currentTimeMillis());
         Random r = new Random(winy + System.currentTimeMillis());
+
         class GetSet{
             int d;
             public int get(){
@@ -58,7 +59,6 @@ public class PlaySnake extends Application {
                 d = x;
             }
         }
-        
         GetSet direction = new GetSet();
         direction.set(-1);
         GetSet counter = new GetSet();
@@ -107,6 +107,8 @@ public class PlaySnake extends Application {
                     
                     game.tick(move);
                     game.tick(dir);
+
+                    //game.tick(dir);
                 }
                 counter.set(count>100?0:count+1);
                 //}
