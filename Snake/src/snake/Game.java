@@ -79,7 +79,7 @@ public class Game {
         next[(dir+1)%2] += dir==1||dir==2?1:-1;
         
         //check if hit wall
-        if(next[1]>= h-1||next[1]<0||next[0]>= w-1||next[0]<0){
+        if(next[1]> h-1||next[1]<0||next[0]> w-1||next[0]<0){
             alive = false;
             return;
         }

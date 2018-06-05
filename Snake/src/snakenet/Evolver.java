@@ -37,14 +37,14 @@ public class Evolver {
 
     public static long fitness(NeuralNet n) {
         int score, time;
-        try {
+        try{
             score = n.score / n.testCount;
             time = n.ticks / n.testCount;
-        } catch (Exception e) {
+        } catch(Exception e){
             score = 0;
             time = 0;
         }
-        return score < 10 ? time * time * (long) Math.pow(2, score) : 1024 * (score - 9) * time * time;
+        return score<10?time*time*(long)Math.pow(2,score):1024*(score-9)*time*time;
     }
 
     public static NeuralNet[] sortByFitness(NeuralNet[] a) {
@@ -86,20 +86,20 @@ public class Evolver {
             anyAlive = false;
             for (int j = 0; j < na.length; j++) {
                 GameState ref = games[j].getState();
-                if (ref.score != scoreTrack[j]) {
+                if(ref.score!=scoreTrack[j]){
                     stopCount[j] = 0;
-                    scoreTrack[j] = ref.score;
+                    scoreTrack[j]=ref.score;
                 } else {
                     stopCount[j]++;
                 }
-                if (ref.alive && stopCount[j] <= 500) {
+                if (ref.alive&&stopCount[j]<=500) {
                     anyAlive = true;
                     int move = na[j].move(ref);
                     //System.out.println(j+", "+na[j].ticks + ", "+ move);
                     games[j].tick(move);
                 } else {
-                    ref.alive = false;
-                    na[j].fin(ref);
+                        ref.alive = false;
+                        na[j].fin(ref);                    
                 }
             }
         } while (anyAlive);
@@ -111,61 +111,23 @@ public class Evolver {
         }*/
         return na;
     }
-
-    public NeuralNet selectNet(NeuralNet[] a, long total) {
+    
+    public NeuralNet selectNet(NeuralNet[] a, long total){        
         long runSum = 0;
-        long cap = (long) (rand.nextDouble() * total);
-        for (int i = 0; i < a.length; i++) {
+        long cap = (long) (rand.nextDouble()*total);
+        for(int i=0;i<a.length;i++){
             runSum += fitness(a[i]);
-            if (runSum > cap) {
+            if(runSum>cap){
                 return a[i];
             }
         }
         return a[0];
     }
-
+    
     public NeuralNet evolve(int gens) {
-        NeuralNet best = new NeuralNet(1, 1, 1, 1);
+        NeuralNet best = new NeuralNet(1,1,1,1);
         for (int i = 0; i < gens; i++) {
             testNets(population, size);
-            NeuralNet[] sorted = sortByFitness(population);
-            if (fitness(sorted[0]) > fitness(best)) {
-                best = sorted[0];
-            }
-            //System.out.println(artf(sorted));
-            kept = new NeuralNet[keep];
-            for (int k = 0; k < keep; k++) {
-                NeuralNet temp = sorted[k].clone();
-                kept[k] = temp.clone();
-            }
-            //System.out.println(artf(kept));
-            for (int k = 0; k < popS; k++) {
-                int mom = rand.nextInt(keep - 1);
-                int dad;
-                do {
-                    dad = rand.nextInt(keep - 1);
-                } while (mom == dad);
-                population[k] = kept[mom].crossover(kept[dad]);
-                population[k].mutate(mr);
-            }
-        }
-        testNets(population, size);
-        testNets(population, size);
-        testNets(population, size);
-        int bIndex = 0;
-        for (int j = 0; j < population.length; j++) {
-            long fit = fitness(population[j]);
-            if (fit > fitness(population[bIndex])) {
-                bIndex = j;
-            }
-        }
-        System.out.println(fitness(population[bIndex]));
-        return best;
-    }
-}
-
-//old genetic algorithm
-/*testNets(population, size);
             testNets(population, size);
             testNets(population, size);
             long totalFitness = 0;
@@ -189,4 +151,41 @@ public class Evolver {
                 child.mutate(mr);
                 newPop[j]=child;                
             }
-            population = newPop;*/
+            population = newPop;
+        }
+        testNets(population, size);
+        testNets(population, size);
+        testNets(population, size);
+        int bIndex = 0;
+        for(int j=0;j<population.length;j++){
+                long fit = fitness(population[j]);
+                if(fit>fitness(population[bIndex])) bIndex = j;
+        }
+        System.out.println(fitness(population[bIndex]));
+        return population[bIndex];
+    }
+}
+
+//old genetic algorithm
+/*
+            testNets(population, size);
+            NeuralNet[] sorted = sortByFitness(population);
+            if(fitness(sorted[0])>fitness(best)){
+                best = sorted[0];
+            }
+            //System.out.println(artf(sorted));
+            kept = new NeuralNet[keep];
+            for (int k = 0; k < keep; k++) {
+                NeuralNet temp = sorted[k].clone();
+                kept[k] = temp.clone();
+            }
+            //System.out.println(artf(kept));
+            for (int k = 0; k < popS; k++) {
+                int mom = rand.nextInt(keep - 1);
+                int dad;
+                do {
+                    dad = rand.nextInt(keep - 1);
+                } while (mom == dad);
+                population[k] = kept[mom].crossover(kept[dad]);
+                population[k].mutate(mr);
+            }*/

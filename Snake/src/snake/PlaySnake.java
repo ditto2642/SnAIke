@@ -20,6 +20,7 @@ import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import com.google.gson.*;
+import java.util.Arrays;
 import java.util.Random;
 /**
  *
@@ -30,14 +31,14 @@ public class PlaySnake extends Application {
     @Override
     public void start(Stage primaryStage) {
         //new Evolver([population size], [former kept size (currently not used, can be any int)], [mutation rate], [game size for testing])        
-       /* Evolver ev = new Evolver(100, 25, 0.2, 15);
-        NeuralNet temp = ev.evolve(1500);
+        Evolver ev = new Evolver(100, 30, 0.2, 50);
+        NeuralNet temp = ev.evolve(500);
         final Sai snaek = temp.clone();
-        */
+        
         int gridx = 50;
         int gridy = 50;
-        int winx = gridx*12 + 500;
-        int winy = (gridy+1)*12;
+        int winx = gridx*12 + 512;
+        int winy = (gridy+2)*12;
         int h = winy/2;
         Pane root = new Pane();
         Scene scene = new Scene(root, winx,winy);
@@ -70,12 +71,14 @@ public class PlaySnake extends Application {
                 gc.fillRect(0,0,winx,winy);
                 gc.setFill(Color.WHITE);
                 gc.fillRect(488, 0, winx, winy);
+                gc.setFill(Color.DARKGREY);
+                gc.fillRect(500, 10, winx-512, winy-24);
                 GameItem cur;
                 GameState gs = game.getState();
-                //int move = snaek.move(gs);                
+                int move = snaek.move(gs);                
                 Board b = gs.board;
-                for(int i=0;i<gridx-1;i++){
-                    for(int j=0;j<gridy-1;j++){
+                for(int i=0;i<gridx;i++){
+                    for(int j=0;j<gridy;j++){
                         cur = b.itemAt(i,j);
                         if(cur != null){
                         switch(cur.color){
@@ -92,21 +95,21 @@ public class PlaySnake extends Application {
                         } else {
                             gc.setFill(Color.GREY);
                         }
-                        gc.fillRect((i*12)+500, j*12 + 12, 12, 12);
+                        gc.fillRect((i*12)+501, j*12 + 11, 11, 11);
                     }
                 }
                 gc.fillText("Score: "+gs.score, 50, h);
                 int dir = direction.get();
                 int count = counter.get();
                 
-                if(dir!=-1){
+                //if(dir!=-1){
                 if(count%3==0){
                     
-                //    game.tick(move);
+                    game.tick(move);
                     game.tick(dir);
                 }
                 counter.set(count>100?0:count+1);
-                }
+                //}
             }
         };
         scene.setOnKeyPressed((KeyEvent e) -> {
@@ -143,6 +146,27 @@ public class PlaySnake extends Application {
     public static void main(String[] args) {
         launch(args);        
         //SnakeNet.main(args);
+        /*Evolver ev = new Evolver(100, 30, 0.2, 50);
+        NeuralNet temp = ev.evolve(500);
+        NeuralNet sn = temp.clone();
+        Game g = new Game(50,50,System.currentTimeMillis());
+        g.tick(1);
+        g.tick(1);
+        g.tick(1);
+        GameState gs = g.getState();
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        g.tick(1);
+        gs = g.getState();
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        for(int i=0;i<100;i++){
+        g.tick((i%16)%4);
+        }
+        gs = g.getState();
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        System.out.println(Arrays.toString(sn.decision(NeuralNet.look(gs))));
+        */
     }
     
 }
