@@ -26,10 +26,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-/**
- *
- * @author pmaclean
- */
+
 public class PlaySnake extends Application {
     
     @Override
